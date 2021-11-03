@@ -1,0 +1,14 @@
+{
+  "dockerRun": {
+    "env": {
+    }
+  },
+  "profiles": {
+    "QueryHandler": {
+      "commandName": "Project"
+    },
+    "Docker (1)": {
+      "commandName": "Docker"
+    }
+  }
+}
