@@ -51,7 +51,7 @@ namespace PrivatBankTestApi.Controllers
         {
             var response = await _messagePublisher.PublishRequestsMessageAsync(message);
 
-            if (response.Count == 0)
+            if (response == null || response.Count == 0)
                 return StatusCode(StatusCodes.Status404NotFound);
 
             return StatusCode(StatusCodes.Status200OK, response);

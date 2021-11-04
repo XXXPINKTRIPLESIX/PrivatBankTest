@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yMbRG8/FylV3J58TtrWVvO2Hz6G+/HOkMxs+plv2FDD0Y6Y+iuKnu4Nxp2bqLlNRWrtALPIZEGoa/UiQIsNKVA==",
+  "dgSpecHash": "b98Okt0SNffJeKy0O3ln02R0AGz3H/mhZmAOYSASohr+4z6tK7YdXF5XpTJxTOr+2y6aU3f70AEcGWOAiiktvQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Kiril\\Desktop\\Новая папка\\PrivatBankTestApi\\PrivatBankTestApi.csproj",
+  "projectFilePath": "C:\\Users\\Kiril\\Desktop\\PrivatBank\\PrivatBankTestApi\\PrivatBankTestApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kiril\\.nuget\\packages\\fluentvalidation\\10.3.4\\fluentvalidation.10.3.4.nupkg.sha512",
     "C:\\Users\\Kiril\\.nuget\\packages\\fluentvalidation.aspnetcore\\10.3.4\\fluentvalidation.aspnetcore.10.3.4.nupkg.sha512",

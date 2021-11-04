@@ -22,14 +22,14 @@ namespace QueryHandler.Messages
             using SqlConnection sqlConnection = new SqlConnection(Configuration.ConnectionString);
 
             var procedure = "[InsertRequest]";
-
+            var _status = Status.ToString();
             var results = await sqlConnection.QueryAsync<int>(procedure,
                 new
                 {
                     client_id = ClientId,
                     department_address = DepartmentAddress,
                     currency = Currency,
-                    status = Status,
+                    status = Status.ToString(),
                     amount = Amount
                 },
                 commandType: System.Data.CommandType.StoredProcedure);

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "anx14XGOWXiyKREE+oj+gvdSKbKggPn3XwKHERddzyZNNi4W1FNnOWTBs9E00I+pxRjSKwf46KvifxXH032JYw==",
+  "dgSpecHash": "7/3CNRHOwcm5/Vey4x1rYIBPVUVvoAGWUwpR6R7oOTrsKPhMFIoj7NyiPZHMfsRQS9Bp13OrH6Y96bwte9+yug==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Kiril\\Desktop\\Новая папка\\QueryHandler\\QueryHandler.csproj",
+  "projectFilePath": "C:\\Users\\Kiril\\Desktop\\PrivatBank\\QueryHandler\\QueryHandler.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kiril\\.nuget\\packages\\dapper\\2.0.90\\dapper.2.0.90.nupkg.sha512",
     "C:\\Users\\Kiril\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",

@@ -31,6 +31,7 @@ namespace QueryHandler.Messages
                     department_address = DepartmentAddress
                 },
                 commandType: System.Data.CommandType.StoredProcedure);
+
             return results;
         }
     }

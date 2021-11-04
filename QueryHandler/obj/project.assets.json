@@ -888,11 +888,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Kiril\\Desktop\\Новая папка\\QueryHandler\\QueryHandler.csproj",
+      "projectUniqueName": "C:\\Users\\Kiril\\Desktop\\PrivatBank\\QueryHandler\\QueryHandler.csproj",
       "projectName": "QueryHandler",
-      "projectPath": "C:\\Users\\Kiril\\Desktop\\Новая папка\\QueryHandler\\QueryHandler.csproj",
+      "projectPath": "C:\\Users\\Kiril\\Desktop\\PrivatBank\\QueryHandler\\QueryHandler.csproj",
       "packagesPath": "C:\\Users\\Kiril\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kiril\\Desktop\\Новая папка\\QueryHandler\\obj\\",
+      "outputPath": "C:\\Users\\Kiril\\Desktop\\PrivatBank\\QueryHandler\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Programs\\Visual Studio 2019\\Shared\\NuGetPackages",

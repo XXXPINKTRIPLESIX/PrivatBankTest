@@ -49,7 +49,7 @@ namespace QueryHandler
             consumer3.Received += async (model, ea) => await RequestHandler<RequestsMessage, IEnumerable<RequestsResponseDTO>>(ea, channel3);
 
             Console.WriteLine(" Press [enter] to exit.");
-            if (Console.Read() == 13)
+            if (Console.Read() == (char)13)
             {
                 DisposeChannel(channel1);
                 DisposeChannel(channel2);

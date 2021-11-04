@@ -28,6 +28,7 @@ namespace QueryHandler.Messages
                     id = RequestId
                 },
                 commandType: System.Data.CommandType.StoredProcedure);
+
             return results.First();
         }
     }

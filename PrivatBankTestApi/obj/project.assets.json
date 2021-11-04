@@ -4121,11 +4121,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Kiril\\Desktop\\Новая папка\\PrivatBankTestApi\\PrivatBankTestApi.csproj",
+      "projectUniqueName": "C:\\Users\\Kiril\\Desktop\\PrivatBank\\PrivatBankTestApi\\PrivatBankTestApi.csproj",
       "projectName": "PrivatBankTestApi",
-      "projectPath": "C:\\Users\\Kiril\\Desktop\\Новая папка\\PrivatBankTestApi\\PrivatBankTestApi.csproj",
+      "projectPath": "C:\\Users\\Kiril\\Desktop\\PrivatBank\\PrivatBankTestApi\\PrivatBankTestApi.csproj",
       "packagesPath": "C:\\Users\\Kiril\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kiril\\Desktop\\Новая папка\\PrivatBankTestApi\\obj\\",
+      "outputPath": "C:\\Users\\Kiril\\Desktop\\PrivatBank\\PrivatBankTestApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Programs\\Visual Studio 2019\\Shared\\NuGetPackages",
