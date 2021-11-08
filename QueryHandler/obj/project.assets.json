@@ -881,34 +881,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Kiril\\.nuget\\packages\\": {},
-    "D:\\Programs\\Visual Studio 2019\\Shared\\NuGetPackages": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "/home/xxxpinktriplesix/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Kiril\\Desktop\\PrivatBank\\QueryHandler\\QueryHandler.csproj",
+      "projectUniqueName": "/home/xxxpinktriplesix/RiderProjects/PrivatBankTest/QueryHandler/QueryHandler.csproj",
       "projectName": "QueryHandler",
-      "projectPath": "C:\\Users\\Kiril\\Desktop\\PrivatBank\\QueryHandler\\QueryHandler.csproj",
-      "packagesPath": "C:\\Users\\Kiril\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kiril\\Desktop\\PrivatBank\\QueryHandler\\obj\\",
+      "projectPath": "/home/xxxpinktriplesix/RiderProjects/PrivatBankTest/QueryHandler/QueryHandler.csproj",
+      "packagesPath": "/home/xxxpinktriplesix/.nuget/packages/",
+      "outputPath": "/home/xxxpinktriplesix/RiderProjects/PrivatBankTest/QueryHandler/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "D:\\Programs\\Visual Studio 2019\\Shared\\NuGetPackages",
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Kiril\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "/home/xxxpinktriplesix/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -975,7 +965,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.402/RuntimeIdentifierGraph.json"
       }
     }
   }
