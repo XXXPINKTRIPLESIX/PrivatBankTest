@@ -4,13 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PrivatBankTestApi.Common;
 
 namespace PrivatBankTestApi.Interfaces
 {
     public interface IPublisherService : IService
     {
-        Task<ByIdResponseDTO> PublishRequestByIdMessageAsync(RequestByIdMessage message);
-        Task<List<RequestsResponseDTO>> PublishRequestsMessageAsync(RequestsMessage message);
-        Task<int?> PublishRequestMessageAsync(RequestMessage message);
+        Task<ExecutionResult<ByIdResponseDTO>> PublishRequestByIdMessageAsync(RequestByIdMessage message);
+        Task<ExecutionResult<List<RequestsResponseDTO>>> PublishRequestsMessageAsync(RequestsMessage message);
+        Task<ExecutionResult<string>> PublishRequestMessageAsync(RequestMessage message);
     }
 }

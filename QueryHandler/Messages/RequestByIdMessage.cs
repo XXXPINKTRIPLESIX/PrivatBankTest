@@ -7,18 +7,19 @@ using System;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using PrivatBankTestApi.Common;
 
 namespace QueryHandler.Messages
 {
-    public class RequestByIdMessage : IMessage<ByIdResponseDTO>
+    public class RequestByIdMessage : IMessage<ExecutionResult<ByIdResponseDTO>>
     {
         public int RequestId { get; set; }
 
-        public async Task<ByIdResponseDTO> ExecRequestAsync()
+        public async Task<ExecutionResult<ByIdResponseDTO>> ExecRequestAsync()
         {
             DefaultTypeMap.MatchNamesWithUnderscores = true;
 
-            using SqlConnection sqlConnection = new SqlConnection(Configuration.ConnectionString);
+            await using SqlConnection sqlConnection = new SqlConnection(Configuration.ConnectionString);
 
             var procedure = "[SelectById]";
 
@@ -28,8 +29,11 @@ namespace QueryHandler.Messages
                     id = RequestId
                 },
                 commandType: System.Data.CommandType.StoredProcedure);
+            
+            if(results != null & results.Any())
+                return ExecutionResult<ByIdResponseDTO>.CreateSuccessResult(results.First());
 
-            return results.First();
+            return ExecutionResult<ByIdResponseDTO>.CreateErrorResult("Not found");
         }
     }
 }
