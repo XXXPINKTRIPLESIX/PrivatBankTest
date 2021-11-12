@@ -8,17 +8,18 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using PrivatBankTestApi.Common;
 
 namespace QueryHandler.Messages
 {
-    public class RequestsMessage : IMessage<IEnumerable<RequestsResponseDTO>>
+    public class RequestsMessage : IMessage<ExecutionResult<IEnumerable<RequestsResponseDTO>>>
     {
         public string ClientId { get; set; }
         public string DepartmentAddress { get; set; }
 
-        public async Task<IEnumerable<RequestsResponseDTO>> ExecRequestAsync()
+        public async Task<ExecutionResult<IEnumerable<RequestsResponseDTO>>> ExecRequestAsync()
         {
-            using SqlConnection sqlConnection = new SqlConnection(Configuration.ConnectionString);
+            await using SqlConnection sqlConnection = new SqlConnection(Configuration.ConnectionString);
 
             var procedure = "[SelectByIdAndAddress]";
 
@@ -32,7 +33,10 @@ namespace QueryHandler.Messages
                 },
                 commandType: System.Data.CommandType.StoredProcedure);
 
-            return results;
+            if(results != null & results.Any())
+                return ExecutionResult<IEnumerable<RequestsResponseDTO>>.CreateSuccessResult(results);
+
+            return ExecutionResult<IEnumerable<RequestsResponseDTO>>.CreateErrorResult("Not found");
         }
     }
 }

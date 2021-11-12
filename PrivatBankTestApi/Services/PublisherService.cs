@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PrivatBankTestApi.Common;
 
 namespace PrivatBankTestApi.Services
 {
@@ -18,35 +19,35 @@ namespace PrivatBankTestApi.Services
             _messagePublisher = messagePublisher;
         }
 
-        public async Task<ByIdResponseDTO> PublishRequestByIdMessageAsync(RequestByIdMessage message)
+        public async Task<ExecutionResult<ByIdResponseDTO>> PublishRequestByIdMessageAsync(RequestByIdMessage message)
         {
             var body = JsonConvert.SerializeObject(message);
 
-            var rawResponse = await Task.Run(() => { return _messagePublisher.ToQueue(body, "rpc_2_queue"); });
+            var rawResponse = await Task.Run(() => _messagePublisher.ToQueue(body, "rpc_2_queue"));
 
-            ByIdResponseDTO response = JsonConvert.DeserializeObject<ByIdResponseDTO>(rawResponse);
+            var response = JsonConvert.DeserializeObject<ExecutionResult<ByIdResponseDTO>>(rawResponse);
 
             return response;
         }
 
-        public async Task<List<RequestsResponseDTO>> PublishRequestsMessageAsync(RequestsMessage message)
+        public async Task<ExecutionResult<List<RequestsResponseDTO>>> PublishRequestsMessageAsync(RequestsMessage message)
         {
             var body = JsonConvert.SerializeObject(message);
 
-            var rawResponse = await Task.Run(() => { return _messagePublisher.ToQueue(body, "rpc_3_queue"); });
-
-            List<RequestsResponseDTO> response = JsonConvert.DeserializeObject<List<RequestsResponseDTO>>(rawResponse);
-
+            var rawResponse = await Task.Run(() => _messagePublisher.ToQueue(body, "rpc_3_queue"));
+        
+            var response = JsonConvert.DeserializeObject<ExecutionResult<List<RequestsResponseDTO>>>(rawResponse);
+            
             return response;
         }
 
-        public async Task<int?> PublishRequestMessageAsync(RequestMessage message)
+        public async Task<ExecutionResult<string>> PublishRequestMessageAsync(RequestMessage message)
         {
             var body = JsonConvert.SerializeObject(message);
 
-            var rawResponse = await Task.Run(() => { return _messagePublisher.ToQueue(body, "rpc_queue"); });
+            var rawResponse = await Task.Run(() => _messagePublisher.ToQueue(body, "rpc_queue"));
 
-            int? response = JsonConvert.DeserializeObject<int?>(rawResponse);
+            var response = JsonConvert.DeserializeObject<ExecutionResult<string>>(rawResponse);
 
             return response;
         }

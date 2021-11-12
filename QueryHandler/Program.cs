@@ -9,6 +9,7 @@ using QueryHandler.Logging;
 using System.Data.SqlClient;
 using QueryHandler.Messages;
 using System.Collections.Generic;
+using PrivatBankTestApi.Common;
 using QueryHandler.Interfaces;
 using QueryHandler.DTO;
 
@@ -36,17 +37,17 @@ namespace QueryHandler
 
             var consumer1 = new EventingBasicConsumer(channel1);
             channel1.BasicConsume(queue: "rpc_queue", autoAck: false, consumer: consumer1);
-            consumer1.Received += async (model, ea) => await RequestHandler<RequestMessage, int>(ea, channel1);
+            consumer1.Received += async (model, ea) => await RequestHandler<RequestMessage, ExecutionResult<string>>(ea, channel1);
 
 
             var consumer2 = new EventingBasicConsumer(channel2);
             channel2.BasicConsume(queue: "rpc_2_queue", autoAck: false, consumer: consumer2);
-            consumer2.Received += async (model, ea) => await RequestHandler<RequestByIdMessage, ByIdResponseDTO>(ea, channel2);
+            consumer2.Received += async (model, ea) => await RequestHandler<RequestByIdMessage, ExecutionResult<ByIdResponseDTO>>(ea, channel2);
 
             
             var consumer3 = new EventingBasicConsumer(channel3);
             channel3.BasicConsume(queue: "rpc_3_queue", autoAck: false, consumer: consumer3);
-            consumer3.Received += async (model, ea) => await RequestHandler<RequestsMessage, IEnumerable<RequestsResponseDTO>>(ea, channel3);
+            consumer3.Received += async (model, ea) => await RequestHandler<RequestsMessage, ExecutionResult<IEnumerable<RequestsResponseDTO>>>(ea, channel3);
 
             Console.WriteLine(" Press [enter] to exit.");
             if (Console.Read() == (char)13)
@@ -55,12 +56,11 @@ namespace QueryHandler
                 DisposeChannel(channel2);
                 DisposeChannel(channel3);
 
-                if (_connection != null)
-                    _connection.Dispose();
+                _connection?.Dispose();
             }
         }
 
-        public static async Task RequestHandler<T, U>(BasicDeliverEventArgs ea, IModel channel)
+        private static async Task RequestHandler<T, TU>(BasicDeliverEventArgs ea, IModel channel) where TU : class
         {
             string response = null;
 
@@ -73,7 +73,7 @@ namespace QueryHandler
             {
                 var message = Encoding.UTF8.GetString(body);
 
-                IMessage<U> request = JsonConvert.DeserializeObject<T>(message) as IMessage<U>;
+                IMessage<TU> request = JsonConvert.DeserializeObject<T>(message) as IMessage<TU>;
 
                 _logger.ForContext("log", "MESSAGE")
                 .Information("{message}", message);
@@ -85,22 +85,30 @@ namespace QueryHandler
             catch(JsonException jsonException) 
             {
                 _logger.Error(jsonException.Message);
-                response = "";
+                
+                var errorResult = JsonConvert.SerializeObject(ExecutionResult<JsonException>.CreateErrorResult("jsonException"));
+                response = errorResult;
             }
             catch (InvalidCastException castException) 
             {
                 _logger.Error(castException.Message);
-                response = "";
+                
+                var errorResult = JsonConvert.SerializeObject(ExecutionResult<JsonException>.CreateErrorResult("jsonException"));
+                response = errorResult;
             }
             catch (SqlException sqlException)
             {
                 _logger.Error(sqlException.Message);
-                response = "";
+                
+                var errorResult = JsonConvert.SerializeObject(ExecutionResult<JsonException>.CreateErrorResult("jsonException"));
+                response = errorResult;
             }
             catch (Exception e)
             {
                 _logger.Error(e.Message);
-                response = "";
+                
+                var errorResult = JsonConvert.SerializeObject(ExecutionResult<JsonException>.CreateErrorResult("jsonException"));
+                response = errorResult;
             }
             finally
             {
@@ -122,8 +130,7 @@ namespace QueryHandler
 
         private static void DisposeChannel(IModel channel)
         {
-            if (channel != null)
-                channel.Dispose();
+            channel?.Dispose();
         }
     }
 }

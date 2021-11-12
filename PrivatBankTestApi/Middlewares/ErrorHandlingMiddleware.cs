@@ -38,8 +38,8 @@ namespace PrivatBankTestApi.Middlewares
 		{
 			var code = HttpStatusCode.InternalServerError;
 			var errorMessage = ex.Message;
-
-			var result = JsonConvert.SerializeObject(new ErrorResult(code.ToString(), errorMessage));
+			
+			var result = JsonConvert.SerializeObject(new {Code = code, ErrorMessage = errorMessage});
 			context.Response.ContentType = "application/json";
 			context.Response.StatusCode = (int)code;
 
