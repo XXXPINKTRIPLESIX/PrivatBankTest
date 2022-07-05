@@ -1,9 +1,5 @@
 version: '3.4'
 
-networks:
-  app-tier:
-    driver: bridge
-
 services:
     rabbitmq:
         image: rabbitmq:3-management
@@ -13,7 +9,6 @@ services:
         container_name: rabbitmq
            
         environment:
-            #RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE}
             RABBITMQ_DEFAULT_USER: ${guest}
             RABBITMQ_DEFAULT_PASS: ${guest}
         ports:
@@ -22,16 +17,6 @@ services:
 
     privatbanktestapi:
         image: ${DOCKER_REGISTRY-}privatbanktestapi
-        depends_on:
-            - rabbitmq
-        networks:
-            - app-tier
-        build:
-            context: .
-            dockerfile: PrivatBankTestApi/Dockerfile
-
-    queryhandler:
-        image: ${DOCKER_REGISTRY-}queryhandler
         environment:
             - rabbit_mq_host=rabbitmq
             - rabbit_mq_port=5672
@@ -41,8 +26,38 @@ services:
             - rabbitmq
         networks:
             - app-tier
+
+        build:
+            context: .
+            dockerfile: PrivatBankTestApi/Dockerfile
+            
+    queryhandler:
+        image: ${DOCKER_REGISTRY-}queryhandler
+        environment:
+            - rabbit_mq_host=rabbitmq
+            - rabbit_mq_port=5672
+            - rabbitmq_username=guest
+            - rabbitmq_password=guest
+        depends_on:
+            - rabbitmq
+            - "sqlserver"
+        networks:
+            - app-tier
         build:
             context: .
             dockerfile: QueryHandler/Dockerfile
+    sqlserver:
+        image: mcr.microsoft.com/azure-sql-edge
+        ports:
+            - "1433:1433"
+        environment:
+            - SA_PASSWORD=@someThingComplicated1234
+            - ACCEPT_EULA=Y
+        networks:
+            - app-tier
+
+networks:
+  app-tier:
+    driver: bridge
 
   

@@ -22,7 +22,7 @@ namespace PrivatBankTestApi.Publisher
 
         public MessagePublisher()
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
+            var factory = new ConnectionFactory() { HostName = "rabbitmq", Port = 5672 };
 
             connection = factory.CreateConnection();
             channel = connection.CreateModel();

@@ -15,7 +15,11 @@ namespace PrivatBankTestApi
     {
         public static void Main(string[] args)
         {
-            Log.Logger = Logger.Create();
+            Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .Enrich.WithClientIp()
+            .WriteTo.File("log-.txt", rollingInterval: RollingInterval.Day)
+            .CreateLogger();
 
             try
             {
@@ -34,11 +38,7 @@ namespace PrivatBankTestApi
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>()
-                              .UseSerilog();
-                });
-           
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); })
+                .UseSerilog();
     }
 }

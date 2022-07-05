@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueryHandler", "QueryHandle
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{DBFD24D8-AB22-4028-8766-E17E3BA0290E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp2", "C:\Users\Kiril\source\repos\ConsoleApp2\ConsoleApp2\ConsoleApp2.csproj", "{C7C1D7EE-DE61-4491-8746-C5D56EEEDF43}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{DBFD24D8-AB22-4028-8766-E17E3BA0290E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBFD24D8-AB22-4028-8766-E17E3BA0290E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBFD24D8-AB22-4028-8766-E17E3BA0290E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7C1D7EE-DE61-4491-8746-C5D56EEEDF43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7C1D7EE-DE61-4491-8746-C5D56EEEDF43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7C1D7EE-DE61-4491-8746-C5D56EEEDF43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7C1D7EE-DE61-4491-8746-C5D56EEEDF43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

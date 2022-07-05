@@ -10,7 +10,7 @@ using PrivatBankTestApi.Common;
 
 namespace QueryHandler.Messages
 {
-    public class RequestMessage : IMessage<ExecutionResult<string>>
+    public class RequestMessage : IMessage<ExecutionResult>
     {
         public string ClientId { get; set; }
         public string DepartmentAddress { get; set; }
@@ -18,7 +18,7 @@ namespace QueryHandler.Messages
         public string Currency { get; set; }
         public RequestStatus Status { get; set; } = RequestStatus.InProgress;
 
-        public async Task<ExecutionResult<string>> ExecRequestAsync()
+        public async Task<ExecutionResult> ExecRequestAsync()
         {
             await using SqlConnection sqlConnection = new SqlConnection(Configuration.ConnectionString);
 
@@ -38,7 +38,7 @@ namespace QueryHandler.Messages
             if(results != null & results.Any())
                 return ExecutionResult<string>.CreateSuccessResult(results.First().ToString());
 
-            return ExecutionResult<string>.CreateErrorResult("Bad request");
+            return ExecutionResult.CreateErrorResult("Bad request");
         }
     }
 }

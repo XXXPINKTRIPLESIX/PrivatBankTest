@@ -10,7 +10,9 @@ using System.Text;
 using System.Threading.Tasks;
 using PrivatBankTestApi.DTO;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using PrivatBankTestApi.Common;
+using PrivatBankTestApi.Services;
 
 namespace PrivatBankTestApi.Controllers
 {
@@ -19,10 +21,12 @@ namespace PrivatBankTestApi.Controllers
     public class RequestController : ControllerBase
     {
         private readonly IPublisherService _messagePublisher;
+        private readonly ILogger<RequestController> _logger;
 
-        public RequestController(IPublisherService publisherService)
+        public RequestController(IPublisherService publisherService, ILogger<RequestController> logger)
         {
             _messagePublisher = publisherService;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -35,9 +39,9 @@ namespace PrivatBankTestApi.Controllers
         [ProducesResponseType(typeof(ExecutionResult<ByIdResponseDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExecutionResult<ByIdResponseDTO>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetRequestById([FromRoute] RequestByIdMessage message)
-        {
+        { 
             var response = await _messagePublisher.PublishRequestByIdMessageAsync(message);
-
+            
             return response.IsSuccess
                 ? StatusCode(StatusCodes.Status200OK, response.Result)
                 : StatusCode(StatusCodes.Status404NotFound, response.ErrorMessage);

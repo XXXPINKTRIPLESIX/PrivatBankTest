@@ -7,5 +7,6 @@ namespace PrivatBankTestApi.Interfaces
 {
     public interface IService
     {
+        
     }
 }

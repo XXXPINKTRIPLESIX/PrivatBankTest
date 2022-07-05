@@ -11,11 +11,11 @@ using PrivatBankTestApi.Common;
 
 namespace QueryHandler.Messages
 {
-    public class RequestByIdMessage : IMessage<ExecutionResult<ByIdResponseDTO>>
+    public class RequestByIdMessage : IMessage<ExecutionResult>
     {
         public int RequestId { get; set; }
 
-        public async Task<ExecutionResult<ByIdResponseDTO>> ExecRequestAsync()
+        public async Task<ExecutionResult> ExecRequestAsync()
         {
             DefaultTypeMap.MatchNamesWithUnderscores = true;
 
@@ -33,7 +33,7 @@ namespace QueryHandler.Messages
             if(results != null & results.Any())
                 return ExecutionResult<ByIdResponseDTO>.CreateSuccessResult(results.First());
 
-            return ExecutionResult<ByIdResponseDTO>.CreateErrorResult("Not found");
+            return ExecutionResult.CreateErrorResult("Not found");
         }
     }
 }

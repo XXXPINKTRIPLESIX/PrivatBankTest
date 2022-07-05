@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PrivatBankTestApi.Interfaces
 {
-    public interface IMessagePublisher
+    public interface IMessagePublisher : IService
     {
         string ToQueue(string message, string queue);
         void Close();

@@ -1,21 +1,23 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace PrivatBankTestApi.Middlewares
 {
     public class RequestResponseLoggingMiddleware
     {
 		private readonly RequestDelegate _next;
+		private readonly ILogger<RequestResponseLoggingMiddleware> _logger;
 
-		public RequestResponseLoggingMiddleware(RequestDelegate next)
+		public RequestResponseLoggingMiddleware(RequestDelegate next, ILogger<RequestResponseLoggingMiddleware> logger)
 		{
 			_next = next;
+			_logger = logger;
 		}
 
 		public async Task InvokeAsync(HttpContext context)
@@ -26,10 +28,12 @@ namespace PrivatBankTestApi.Middlewares
 			var originalBodyStream = context.Response.Body;
 
 			var ip = context.Request.HttpContext.Connection.RemoteIpAddress.ToString();
-
-			Log.ForContext("log", "REQUEST")
-				.ForContext("Method", context.Request.Method)
-				.Information("{body}", requestBody);
+			
+			_logger.LogInformation(requestBody);
+			
+			// Log.ForContext("log", "REQUEST")
+			// 	.ForContext("Method", context.Request.Method)
+			// 	.Information("{body}", requestBody);
 
 			try
 			{
@@ -39,10 +43,12 @@ namespace PrivatBankTestApi.Middlewares
 				await _next(context);
 
 				var response = await GetResponseBodyAsync(context.Response);
-
-				Log.ForContext("log", "RESPONSE")
-					.ForContext("statusCode", context.Response.StatusCode)
-					.Information("{body}", response);
+				
+				_logger.LogInformation(response);
+				
+				// Log.ForContext("log", "RESPONSE")
+				// 	.ForContext("statusCode", context.Response.StatusCode)
+				// 	.Information("{body}", response);
 
 				responseBody.Position = 0;
 				await responseBody.CopyToAsync(originalBodyStream);

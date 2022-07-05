@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using PrivatBankTestApi.Common;
 using QueryHandler.Interfaces;
 using QueryHandler.DTO;
+using System.Threading;
 
 namespace QueryHandler
 {
@@ -27,27 +28,26 @@ namespace QueryHandler
 
         static async Task Main(string[] args)
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
+            var factory = new ConnectionFactory() { HostName = "rabbitmq", Port = 5672 };
             _connection = factory.CreateConnection();
-
+            
             var channel1 = CreateChannel("rpc_queue");
             var channel2 = CreateChannel("rpc_2_queue");
             var channel3 = CreateChannel("rpc_3_queue");
 
-
             var consumer1 = new EventingBasicConsumer(channel1);
             channel1.BasicConsume(queue: "rpc_queue", autoAck: false, consumer: consumer1);
-            consumer1.Received += async (model, ea) => await RequestHandler<RequestMessage, ExecutionResult<string>>(ea, channel1);
+            consumer1.Received += async (model, ea) => await RequestHandler<RequestMessage, ExecutionResult>(ea, channel1);
 
 
             var consumer2 = new EventingBasicConsumer(channel2);
             channel2.BasicConsume(queue: "rpc_2_queue", autoAck: false, consumer: consumer2);
-            consumer2.Received += async (model, ea) => await RequestHandler<RequestByIdMessage, ExecutionResult<ByIdResponseDTO>>(ea, channel2);
+            consumer2.Received += async (model, ea) => await RequestHandler<RequestByIdMessage, ExecutionResult>(ea, channel2);
 
             
             var consumer3 = new EventingBasicConsumer(channel3);
             channel3.BasicConsume(queue: "rpc_3_queue", autoAck: false, consumer: consumer3);
-            consumer3.Received += async (model, ea) => await RequestHandler<RequestsMessage, ExecutionResult<IEnumerable<RequestsResponseDTO>>>(ea, channel3);
+            consumer3.Received += async (model, ea) => await RequestHandler<RequestsMessage, ExecutionResult>(ea, channel3);
 
             Console.WriteLine(" Press [enter] to exit.");
             if (Console.Read() == (char)13)
@@ -86,28 +86,28 @@ namespace QueryHandler
             {
                 _logger.Error(jsonException.Message);
                 
-                var errorResult = JsonConvert.SerializeObject(ExecutionResult<JsonException>.CreateErrorResult("jsonException"));
+                var errorResult = JsonConvert.SerializeObject(ExecutionResult<JsonException>.CreateErrorResult(jsonException.Message));
                 response = errorResult;
             }
             catch (InvalidCastException castException) 
             {
                 _logger.Error(castException.Message);
                 
-                var errorResult = JsonConvert.SerializeObject(ExecutionResult<JsonException>.CreateErrorResult("jsonException"));
+                var errorResult = JsonConvert.SerializeObject(ExecutionResult<JsonException>.CreateErrorResult(castException.Message));
                 response = errorResult;
             }
             catch (SqlException sqlException)
             {
                 _logger.Error(sqlException.Message);
                 
-                var errorResult = JsonConvert.SerializeObject(ExecutionResult<JsonException>.CreateErrorResult("jsonException"));
+                var errorResult = JsonConvert.SerializeObject(ExecutionResult<JsonException>.CreateErrorResult(sqlException.Message));
                 response = errorResult;
             }
             catch (Exception e)
             {
                 _logger.Error(e.Message);
                 
-                var errorResult = JsonConvert.SerializeObject(ExecutionResult<JsonException>.CreateErrorResult("jsonException"));
+                var errorResult = JsonConvert.SerializeObject(ExecutionResult<JsonException>.CreateErrorResult(e.Message));
                 response = errorResult;
             }
             finally

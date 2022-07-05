@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 namespace PrivatBankTestApi.Common
 {
     #nullable enable
-    public class ExecutionResult<T> where T : class
+    public class ExecutionResult<T> : ExecutionResult where T : class
     {
-        public bool IsSuccess { get; private set; }
         public T Result { get; private set; }
-        public string ErrorMessage { get; private set; }
 
         public static ExecutionResult<T> CreateSuccessResult(T obj)
         {

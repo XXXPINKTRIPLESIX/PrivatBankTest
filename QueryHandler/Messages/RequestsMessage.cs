@@ -12,12 +12,12 @@ using PrivatBankTestApi.Common;
 
 namespace QueryHandler.Messages
 {
-    public class RequestsMessage : IMessage<ExecutionResult<IEnumerable<RequestsResponseDTO>>>
+    public class RequestsMessage : IMessage<ExecutionResult>
     {
         public string ClientId { get; set; }
         public string DepartmentAddress { get; set; }
 
-        public async Task<ExecutionResult<IEnumerable<RequestsResponseDTO>>> ExecRequestAsync()
+        public async Task<ExecutionResult> ExecRequestAsync()
         {
             await using SqlConnection sqlConnection = new SqlConnection(Configuration.ConnectionString);
 
@@ -36,7 +36,7 @@ namespace QueryHandler.Messages
             if(results != null & results.Any())
                 return ExecutionResult<IEnumerable<RequestsResponseDTO>>.CreateSuccessResult(results);
 
-            return ExecutionResult<IEnumerable<RequestsResponseDTO>>.CreateErrorResult("Not found");
+            return ExecutionResult.CreateErrorResult("Not found");
         }
     }
 }

@@ -1,0 +1,8 @@
+2022-07-05 10:56:25.748 +00:00 [INF] {"RequestId":1}
+2022-07-05 10:56:55.802 +00:00 [ERR] A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: TCP Provider, error: 35 - An internal exception was caught)
+2022-07-05 11:22:42.562 +00:00 [INF] {"RequestId":1}
+2022-07-05 11:23:12.201 +00:00 [ERR] A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: TCP Provider, error: 35 - An internal exception was caught)
+2022-07-05 11:44:56.712 +00:00 [INF] {"RequestId":1}
+2022-07-05 11:44:56.823 +00:00 [ERR] LocalDB is not supported on this platform.
+2022-07-05 11:49:19.597 +00:00 [INF] {"RequestId":1}
+2022-07-05 11:49:19.709 +00:00 [ERR] LocalDB is not supported on this platform.
